@@ -85,6 +85,10 @@ function deal() {
 }
 
 function blackjack(person) {
+	if (person == "dealer") {
+		dealerCards.children[1].classList.remove("flipped");
+		dealerRevealed = true;
+	}
 	endHand(person);
 }
 
@@ -361,7 +365,15 @@ function actionToFull(action) {
 	}
 }
 
-function updateTotals() {
+function updateTotals(blackjack) {
+	if (blackjack == "dealer") {
+		document.getElementById("dealerTotal").innerHTML = "Dealer: <br>21";
+		return;
+	} else if (blackjack == "player") {
+		document.getElementById("playerTotal").innerHTML = "Player: <br>21";
+		return;
+	}
+
 	let playerTotal = 0;
 	let playerAces = 0;
 	let dealerTotal = 0;
@@ -399,7 +411,7 @@ function updateTotals() {
 		playerDisplay = `${playerTotal}`;
 	}
 
-	document.getElementById("playerTotal").innerHTML = playerDisplay;
+	document.getElementById("playerTotal").innerHTML = "Player: <br>" + playerDisplay;
 
 	for (let i = 0; i < dealerHand.length; i++) {
 		const rank = dealerHand[i].charAt(0).toLowerCase();
@@ -434,7 +446,7 @@ function updateTotals() {
 	}
 
 	if (dealerRevealed) {
-		document.getElementById("dealerTotal").innerHTML = dealerDisplay;
+		document.getElementById("dealerTotal").innerHTML = "Dealer: <br>" + dealerDisplay;
 	}
 	return ([playerTotal, playerSoftTotal, dealerTotal, dealerSoftTotal]);
 }
@@ -512,9 +524,11 @@ function displayOutcome(blackjack, busted) {
 	if (blackjack == "player") {
 		totals = "Blackjack!"
 		outcome = "Player wins!";
+		updateTotals("player");
 	} else if (blackjack == "dealer") {
 		totals = "Blackjack!"
 		outcome = "Dealer wins!";
+		updateTotals("dealer");
 	} else if (busted == "player") {
 		totals = "Player busts!"
 		outcome = "Dealer wins!";
