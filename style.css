@@ -13,7 +13,8 @@ black spades
 	font-weight: 400;
 	font-style: normal;
 	color: #FEF9EF;
- }
+	box-sizing: border-box;
+}
 
 body {
 	background-color: #023020;
@@ -21,42 +22,223 @@ body {
 	justify-content: center;
 	align-items: center;
 	flex-direction: column;
+	margin: 0;
+	padding: 0;
+	height: 100vh;
 }
 
 #title {
 	font-size: 64px;
+	margin-top: -50px;
 }
 
 #subtitle {
 	font-size: 24px;
+	margin-bottom: 20px;
 }
 
 #gameContainer {
 	width: 700px;
 	height: 700px;
-
 }
 
-#dealerCards {
+#dealerCards,
+#playerCards {
 	width: 700px;
-	height: 350px;
+	height: 300px;
+	display: flex;
+	justify-content: space-evenly;
+	align-items: center;
 }
 
 .card {
 	width: 200px;
 	height: 280px;
+	perspective: 1000px;
+	margin: -40%;
+	cursor: default;
+}
+
+.card-inner {
+	position: relative;
+	width: 100%;
+	height: 100%;
+	transition: transform 0.6s;
+	transform-style: preserve-3d;
+}
+
+.card.flipped .card-inner {
+	transform: rotateY(180deg);
+}
+
+.card-front,
+.card-back {
+	position: absolute;
+	width: 100%;
+	height: 100%;
 	border-radius: 15px;
+	border: solid black 5px;
+	backface-visibility: hidden;
+}
+
+.card-front {
 	background-color: #FEF9EF;
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	padding: 0px;
+}
+
+.card-back {
+	background-color: #222;
+	transform: rotateY(180deg);
 }
 
 .rank {
 	color: black;
 	font-size: 50px;
-	margin: 0px;
 	display: flex;
 	justify-content: center;
 	align-items: center;
 	text-align: center;
 	width: 50px;
-	height: 50px;
+	height: 60px;
+}
+
+.suit {
+	width: 30px;
+	height: 30px;
+	border-radius: 100%;
+	margin: 10px;
+	margin-top: -5px;
+}
+
+#deck {
+	position: absolute;
+	transform: translate(750px, -500px);
+	width: 200px;
+	height: 280px;
+	cursor: default;
+	background-color: #222;
+}
+
+.ghostCard {
+	width: 200px;
+	height: 280px;
+	perspective: 1000px;
+	margin: -40%;
+	cursor: default;
+}
+
+.h {
+	background-color: #BA1B1D;
+}
+
+.s {
+	background-color: black;
+}
+
+.c {
+	background-color: #4C934C;
+}
+
+.d {
+	background-color: #086788;
+}
+
+.rj {
+	transform: translate(0px, -5px);
+}
+
+.rq {
+	transform: translate(0px, -3px);
+}
+
+#controlsContainer {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 700px;
+	height: 100px;
+	gap: 10px;
+}
+
+.buttonGroup {
+	display: flex;
+	flex-direction: column;
+	gap: 0px;
+}
+
+.button {
+	width: 110px;
+	height: 40px;
+	border-radius: 5px;
+	color: black;
+	font-size: 24px;
+	font-weight: 800;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	border: solid #222 2.5px;
+	margin: 2px;
+	cursor: pointer;
+}
+
+#deal {
+	margin: 0px;
+	height: 85px;
+}
+
+.screen {
+	width: 110px;
+	height: 85px;
+	border-radius: 5px;
+	color: white;
+	font-size: 24px;
+	font-weight: 800;
+	margin: 2px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	text-align: center;
+	border: solid #222 2.5px;
+	background-color: #111;
+
+}
+
+.action {
+	font-size: 20px;
+	line-height: 1.6;
+	padding-top: 8px;
+	display: block;
+	word-break: break-word;
+}
+
+.outcome {
+	width: 130px;
+	height: 40px;
+	font-size: 16px;
+}
+
+#playerTotal {
+	transform: translate(750px, -175px);
+	position: absolute;
+}
+
+#dealerTotal {
+	transform: translate(750px, -625px);
+	position: absolute;
+}
+
+.red {
+	color: #BA1B1D;
+}
+
+.green {
+	color: #4C934C;
+}
+
+.button:disabled {
+	background-color: #666;
+	cursor: default;
 }
